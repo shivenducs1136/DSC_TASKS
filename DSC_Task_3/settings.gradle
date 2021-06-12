@@ -1,0 +1,2 @@
+rootProject.name = "DSC_Task_3"
+include ':app'

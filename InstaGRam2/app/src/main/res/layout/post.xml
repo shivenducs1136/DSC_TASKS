@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/postview"
+    >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="0dp"
+    android:id="@+id/insta_id"
+    >
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/dpdp"
+        app:civ_border_color="#F6358A"
+        app:civ_border_width="2dp"
+        android:elevation="5dp"
+        android:id="@+id/dp_profile"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shiv.endu"
+        android:layout_toRightOf="@+id/dp_profile"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:textColor="@color/black"
+        android:id="@+id/username"
+        android:textSize="15sp"
+                />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_menu"
+        android:layout_centerVertical="true"
+        android:paddingRight="10dp"
+
+        />
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/dpdp"
+            android:id="@+id/post_pic"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/like_comment"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        >
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_heart"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:id="@+id/like"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_chat"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@+id/like"
+            android:id="@+id/comment"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/dm"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_toRightOf="@+id/comment"
+            android:id="@+id/dm"
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/save"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/bookmark"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/comment_section"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liked by"
+            android:textSize="13sp"
+            android:id="@+id/liked_by"
+            />
+
+        <TextView
+            android:id="@+id/likeer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/liked_by"
+            android:text="xyz123"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="and"
+            android:textSize="13sp"
+            android:layout_toRightOf="@+id/likeer"
+            android:id="@+id/and"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123 others"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/and"
+            android:id="@+id/others"
+            android:layout_marginLeft="5dp"
+
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/comment_"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="xyz123"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:id="@+id/commenter"
+            android:layout_marginLeft="5dp"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nice One"
+            android:textSize="13sp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/commenter"
+            android:id="@+id/commented"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

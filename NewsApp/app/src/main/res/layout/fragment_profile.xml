@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ProfileFragment"
+        android:background="@color/white"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/profilecard"
+                android:alpha="0.45555599"
+
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/heartrot"
+                    android:src="@drawable/ic_baseline_favorite_24"
+                    />
+
+                <Button
+                    android:id="@+id/logoutbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Log Out" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PROFILE"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40sp"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:elevation="5dp"
+
+                />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="450sp"
+                android:background="@drawable/card_view"
+                android:alpha="0.8"
+                android:layout_alignParentBottom="true"
+                >
+
+                <TextView
+                    android:id="@+id/nametxtview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30sp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+                <TextView
+                    android:id="@+id/emailtxtview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30sp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/agetxtview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30sp"
+                    android:text=""
+                    android:textColor="@color/black"
+
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/phonetxtview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30sp"
+                    android:text=""
+                    android:textColor="@color/black"
+
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/addresstxtview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30sp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/biotxtview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30sp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+
+</layout>
