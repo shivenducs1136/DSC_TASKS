@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ProfileFragment"
-        android:background="#ff8080"
+        android:background="#2600FF"
         >
 
         <RelativeLayout
@@ -60,59 +60,71 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30sp"
+                    android:background="@drawable/card_view"
                     android:fontFamily="@font/bad_script"
-                    android:text=""
+                    android:padding="10sp"
+
+                    android:text="Your Name Here"
                     android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
                 <TextView
                     android:id="@+id/emailtxtview"
                     android:fontFamily="@font/bad_script"
-
+                    android:background="@drawable/card_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30sp"
-                    android:text=""
+                    android:text="Your Email here"
                     android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    android:padding="10sp"
+
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/agetxtview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bad_script"
-
+                    android:background="@drawable/card_view"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30sp"
-                    android:text=""
+                    android:text="Your age Here"
                     android:textColor="@color/black"
-
-                    android:textSize="30sp" />
+                    android:padding="10sp"
+                    android:textSize="20sp"
+                    />
 
                 <TextView
                     android:id="@+id/phonetxtview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/card_view"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/bad_script"
-
                     android:layout_marginTop="30sp"
-                    android:text=""
+                    android:text="Your Phone Here"
                     android:textColor="@color/black"
-
-                    android:textSize="30sp" />
+                    android:padding="10sp"
+                    android:textSize="20sp"/>
 
                 <TextView
                     android:id="@+id/addresstxtview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/card_view"
+
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30sp"
-                    android:text=""
+                    android:text="Your Address Here"
+
                     android:fontFamily="@font/bad_script"
 
+
                     android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    android:padding="10sp"
+                    android:textSize="20sp"
+                    />
 
                 <TextView
                     android:id="@+id/biotxtview"
@@ -121,9 +133,13 @@
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/bad_script"
                     android:layout_marginTop="30sp"
-                    android:text=""
+                    android:text=" Your Bio Here"
+                    android:padding="10sp"
+
+
+                    android:background="@drawable/card_view"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="20sp"
                     android:layout_marginBottom="10dp"
                     />
                 <TextView
@@ -136,8 +152,8 @@
                     android:id="@+id/logoutbutton"
                     android:layout_gravity="center_horizontal"
                     android:elevation="5dp"
-
                     android:layout_marginBottom="10sp"
+                    android:padding="10sp"
 
                     />
             </LinearLayout>

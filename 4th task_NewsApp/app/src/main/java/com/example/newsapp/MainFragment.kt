@@ -195,7 +195,18 @@ private fun fadeInfromcolour(){
                 }
 
             }
-            R.id.probtn -> findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
+            R.id.probtn -> {
+                val firebaseUser = firebaseAuth.currentUser
+                if(firebaseUser!=null){
+
+                    findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
+                }
+                else{
+                    view?.let { Snackbar.make(it,"Please Login/Register to view your Profile.",Snackbar.LENGTH_SHORT).show() }
+
+                }
+
+            }
 
         }
         return true
