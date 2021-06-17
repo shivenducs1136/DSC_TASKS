@@ -18,42 +18,38 @@
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:background="#ff8080"
+       android:background="#ffffff"
        >
+<ImageView
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:src="@drawable/ic_undraw_login_re_4vu2"
+    android:layout_centerHorizontal="true"
+    android:layout_alignParentTop="true"
+    android:id="@+id/ils1"
+    />
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="LOGIN"
+           android:textSize="40sp"
+           android:textColor="#1232FF"
+           android:layout_below="@+id/ils1"
+           android:layout_centerHorizontal="true"
+           android:fontFamily="@font/amaranth"
+           />
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Khabri 420"
-           android:textStyle="bold"
-           android:textColor="#ffffff"
-           android:textSize="50sp"
-           android:layout_marginTop="30sp"
-           android:layout_centerHorizontal="true"
-           android:fontFamily="sans-serif-condensed-medium"
-           />
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Login"
-           android:textStyle="bold"
-           android:textColor="@color/white"
-           android:textSize="50sp"
-           android:layout_alignParentBottom="true"
-           android:layout_marginBottom="370sp"
-           android:layout_centerHorizontal="true"
-           android:fontFamily="sans-serif-condensed-medium"
-           />
 
        <RelativeLayout
            android:layout_width="match_parent"
-           android:layout_height="300sp"
+           android:layout_height="wrap_content"
            android:layout_centerHorizontal="true"
            android:layout_alignParentBottom="true"
-           android:layout_marginBottom="60sp"
            android:layout_marginLeft="20sp"
-           android:background="@drawable/card_view"
+           android:background="@drawable/card_view_blue"
            android:id="@+id/card_white_trans"
+           android:paddingBottom="30sp"
+
            >
            <LinearLayout
                android:layout_width="match_parent"
@@ -62,16 +58,17 @@
                android:orientation="vertical"
                android:layout_centerHorizontal="true"
                android:layout_marginTop="40sp"
+               android:id="@+id/inputarea"
                >
                <EditText
                    android:id="@+id/editTextTextEmailAddress"
                     android:drawableLeft="@drawable/ic_baseline_account_circle_24"
-
+                   android:textColorHint="#801A02F4"
                    android:text="@={logindetails.email}"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:padding="10dp"
-                   android:ems="10" android:background="@drawable/card1_view"
+                   android:ems="10" android:background="@drawable/card_view_blue"
                    android:inputType="textEmailAddress"
                    android:hint="example@gmail.com"
                    android:drawablePadding="20dp"
@@ -84,8 +81,9 @@
                    android:drawableLeft="@drawable/ic_baseline_lock_24"
                    android:layout_height="wrap_content"
                    android:ems="10"
+                   android:textColorHint="#801A02F4"
                    android:drawablePadding="20dp"
-                   android:background="@drawable/card1_view"
+                   android:background="@drawable/card_view_blue"
                    android:padding="10sp"
                    android:text="@={logindetails.password}"
                    android:inputType="textPassword"
@@ -96,79 +94,70 @@
            </LinearLayout>
 
            <RelativeLayout
+               android:layout_width="150sp"
+               android:layout_marginTop="20sp"
+               android:layout_height="40sp"
+               android:background="@drawable/card_view_blue"
+               android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+               android:id="@+id/loginbtn"
+               android:layout_below="@+id/inputarea"
+               android:onClick="@{logindetails::onLoginButtonClick}"
+               android:elevation="4dp"
+               >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="LOGIN"
+                   android:textSize="25sp"
+
+                   android:layout_centerHorizontal="true"
+                   android:layout_centerVertical="true"
+                   android:textColor="#1232FF"
+                   android:fontFamily="sans-serif-black"
+                   />
+
+           </RelativeLayout>
+           <RelativeLayout
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_centerHorizontal="true"
-               android:layout_marginTop="49sp"
-               android:id="@+id/qwe"
+                android:layout_below="@id/loginbtn"
+               android:id="@+id/regtxt"
+               android:layout_marginTop="15sp"
                >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Not have account? Register here. "
+                   android:id="@+id/reg"
+                   />
 
+           </RelativeLayout>
+           <RelativeLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true"
+                android:layout_below="@+id/regtxt"
+               android:layout_marginTop="10sp"
+               android:elevation="4dp"
+
+               >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text=" Register "
+                   android:id="@+id/Registerbtn"
+                   android:textStyle="bold"
+                   android:textColor="#F43333"
+                   android:textSize="20sp"
+                   android:padding="5dp"
+                   />
 
            </RelativeLayout>
 
        </RelativeLayout>
-       <RelativeLayout
-           android:layout_width="150sp"
-           android:layout_height="40sp"
-           android:background="@drawable/login_btn_view"
-           android:layout_centerHorizontal="true"
-           android:layout_alignParentBottom="true"
-           android:layout_marginBottom="160sp"
-           android:id="@+id/loginbtn"
-           android:onClick="@{logindetails::onLoginButtonClick}"
-           android:elevation="4dp"
-           >
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="LOGIN"
-               android:textSize="25sp"
-               android:layout_centerHorizontal="true"
-               android:layout_centerVertical="true"
-               android:textColor="@color/white"
-               android:fontFamily="sans-serif-black"
-               />
 
        </RelativeLayout>
-   <RelativeLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       android:layout_marginBottom="130sp"
-       android:layout_centerHorizontal="true"
-
-       >
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="Not have account? Register here. "
-           android:id="@+id/reg"
-           />
-
-   </RelativeLayout>
-       <RelativeLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"
-           android:layout_marginBottom="80sp"
-           android:layout_centerHorizontal="true"
-           android:background="@drawable/register_card"
-           android:elevation="4dp"
-
-           >
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text=" Register "
-               android:id="@+id/Registerbtn"
-               android:textStyle="bold"
-               android:textColor="@color/white"
-               android:textSize="20sp"
-               android:padding="5dp"
-               />
-
-       </RelativeLayout>
-
-   </RelativeLayout>
 
 </layout>

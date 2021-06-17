@@ -9,23 +9,19 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.newsapp.databinding.FragmentLoginBinding
 import com.example.newsapp.ui.AuthListener
 import com.example.newsapp.ui.AuthViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 
 class LoginFragment: Fragment(R.layout.fragment_login), AuthListener {
 
@@ -72,7 +68,7 @@ class LoginFragment: Fragment(R.layout.fragment_login), AuthListener {
 
             //handle click open register fragment
             binding.Registerbtn.setOnClickListener {
-                findNavController().navigate(R.id.registerFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
 
             }
 
@@ -87,10 +83,14 @@ class LoginFragment: Fragment(R.layout.fragment_login), AuthListener {
         val firebaseUser = firebaseAuth.currentUser
         if(firebaseUser!=null){
             // user is already logged in
-            Toast.makeText(context,"Your Are Logged IN",Toast.LENGTH_SHORT).show()
+            view?.let { Snackbar.make(it,"You are Logged In",Snackbar.LENGTH_SHORT).show() }
+
             findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
         }
         else{
+            val imm: InputMethodManager =
+                requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(requireView().windowToken, 0)
             firebasLogin()
         }
     }
@@ -122,7 +122,8 @@ class LoginFragment: Fragment(R.layout.fragment_login), AuthListener {
             // getuserinfo
 //            val firebaseUser = firebaseAuth.currentUser
 //            val email =firebaseUser!!.email
-            Toast.makeText(context,"LoggedIn as $email",Toast.LENGTH_SHORT).show()
+            view?.let { Snackbar.make(it,"Logged In As ${email}", Snackbar.LENGTH_SHORT).show() }
+
             // open profile
             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
 
@@ -130,7 +131,8 @@ class LoginFragment: Fragment(R.layout.fragment_login), AuthListener {
             .addOnFailureListener{e->
                 // login failed
                 progressDialog.dismiss()
-                Toast.makeText(context,"You Are Not Registered Yet.",Toast.LENGTH_SHORT).show()
+                view?.let { Snackbar.make(it,"You are not Registered yet",Snackbar.LENGTH_SHORT).show() }
+
             }
     }
     override fun onSuccess() {

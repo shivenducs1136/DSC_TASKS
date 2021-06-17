@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SimpleDataEntryApp</string>
+    <string name="name_txt">Shivendu Mishra</string>
+    <string name="edit_txt">Enter Your Nick Name</string>
+    <string name="long_txt">Android is a mobile operating system based on a modified version of the Linux kernel and other open source software, designed primarily for touchscreen mobile devices such as smartphones and tablets. Android is developed by a consortium of developers known as the Open Handset Alliance and commercially sponsored by Google. It was unveiled in November 2007, with the first commercial Android device, the HTC Dream, being launched in September 2008.
+
+It is free and open-source software; its source code is known as Android Open Source Project (AOSP), which is primarily licensed under the Apache License. However most Android devices ship with additional proprietary software pre-installed,[11] most notably Google Mobile Services (GMS)[12] which includes core apps such as Google Chrome, the digital distribution platform Google Play and associated Google Play Services development platform. About 70 percent of Android smartphones run Gallery, Cafe Bazaar, and GetJar, or open source platforms like Aptoide or F-Droid.
+
+Android has been the best-selling OS worldwide on smartphones since 2011 and on tablets since 2013. As of May 2017, it has over two billion monthly active users, the largest installed base of any operating system, and as of January 2021, the Google Play Store features over 3 million apps.[16] The current stable version is Android 11, released on September 8, 2020.</string>
+
+</resources>

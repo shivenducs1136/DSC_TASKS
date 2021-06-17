@@ -1,5 +1,9 @@
 package com.example.newsapp
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -15,15 +19,23 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.databinding.FragmentMainBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import com.ncornette.cache.OkCacheControl
+import com.ncornette.cache.OkCacheControl.NetworkMonitor
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Interceptor
-import okhttp3.Request
+import okhttp3.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.xml.datatype.DatatypeConstants.MINUTES
+
 
 const val BASE_URL ="https://newsapi.org/"
 
@@ -34,6 +46,7 @@ class MainFragment : Fragment(R.layout.fragment_main), Toolbar.OnMenuItemClickLi
     lateinit var navController: NavController
 //    lateinit var viewModel:NewsViewHolder
     private lateinit var mAdapter: NewsListAdapter
+    lateinit var firebaseAuth: FirebaseAuth
 
     lateinit var countDownTimer: CountDownTimer
 
@@ -61,9 +74,7 @@ class MainFragment : Fragment(R.layout.fragment_main), Toolbar.OnMenuItemClickLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-// **********************************************************
-
-// **************************************************************
+        firebaseAuth = FirebaseAuth.getInstance()
         makeAPIRequest()
 
     }
@@ -91,30 +102,45 @@ private fun fadeInfromcolour(){
 
     private fun makeAPIRequest() {
         progressbar.visibility = View.VISIBLE
-        // ******************************************************************
-        var cache: okhttp3.Cache = okhttp3.Cache(context?.cacheDir, 10 * 1024 * 1024)
-        var okHttpClient: okhttp3.OkHttpClient = okhttp3.OkHttpClient.Builder()
+        // **********************************************************************
+        val cacheSize: Long = 10 * 1024 * 1024 // 10 MB
+
+        val cache = Cache(requireContext().cacheDir, cacheSize)
+//
+        fun isInternetAvailable(context: Context): Boolean? {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val network = connectivityManager.activeNetwork ?: return false
+                val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+                return when {
+                    activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                    activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                    activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                    else -> false
+                }
+
+            } else {
+                val networkInfo = connectivityManager.activeNetworkInfo
+                return networkInfo != null && networkInfo.isConnectedOrConnecting
+            }
+        }
+        val okHttpClient = OkCacheControl.on(OkHttpClient.Builder())
+            .overrideServerCachePolicy(1, TimeUnit.MINUTES)
+            .forceCacheWhenOffline(networkMonitor)
+            .apply()
             .cache(cache)
-            .addInterceptor(Interceptor { chain ->
-                var request: Request = chain.request()
-                request = if (CheckConnect.checkConnectivity(context)!!)
-                request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
-                else
-                    request.newBuilder().header(
-                        "Cache-Control",
-                        "public, only-if-cached, max-stale=" + 60 * 60 * 5
-                    ).build()
-                chain.proceed(request)
-            })
             .build()
+
         // **********************************************************************
 
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
             .client(okHttpClient)
             .build()
             .create(APIRequest::class.java)
+
 
         GlobalScope.launch (Dispatchers.IO){
             try {
@@ -139,7 +165,8 @@ private fun fadeInfromcolour(){
         }
         }
 
-     fun attemptRequestAgain() {
+
+    fun attemptRequestAgain() {
         countDownTimer = object: CountDownTimer(5*1000,1000){
             override fun onTick(millisUntilFinished: Long) {
                Log.i("MainFragment","Could not retrieve data... Trying again in ${millisUntilFinished/1000} seconds")
@@ -158,7 +185,16 @@ private fun fadeInfromcolour(){
         when(item?.itemId){
             R.id.abtitem -> findNavController().navigate(R.id.action_mainFragment_to_aboutFragment2)
             R.id.licitem -> findNavController().navigate(R.id.action_mainFragment_to_licenseFragment2)
-            R.id.lgn ->     findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+            R.id.lgn ->    {
+                val firebaseUser = firebaseAuth.currentUser
+                if(firebaseUser!=null){
+                    view?.let { Snackbar.make(it,"You are already logged In.",Snackbar.LENGTH_SHORT).show() }
+                }
+                else{
+                    findNavController().navigate(R.id.action_mainFragment_to_loginFragment)
+                }
+
+            }
             R.id.probtn -> findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
 
         }
@@ -168,55 +204,35 @@ private fun fadeInfromcolour(){
 
 }
 
+object networkMonitor : OkCacheControl.NetworkMonitor {
+    override fun isOnline(): Boolean {
+        var networkMonitor = NetworkMonitor { isInternetAvailable() }
+return true
+    }
 
+    private fun isInternetAvailable(): Boolean {
+        fun isInternetAvailable(context: Context): Boolean? {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val network = connectivityManager.activeNetwork ?: return false
+                val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+                return when {
+                    activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                    activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                    activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                    else -> false
+                }
 
+            } else {
+                val networkInfo = connectivityManager.activeNetworkInfo
+                return networkInfo != null && networkInfo.isConnectedOrConnecting
+            }
+        }
+        return true
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 //    private fun fetchdata(){

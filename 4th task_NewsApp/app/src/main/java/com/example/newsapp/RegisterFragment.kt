@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import android.app.Activity
 import android.app.ProgressDialog
 import android.os.Bundle
 import android.renderscript.ScriptGroup
@@ -8,6 +9,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -22,6 +24,7 @@ import com.example.newsapp.ui.RegAuthViewModel
 import com.example.newsapp.ui.RegAuthlistener
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -33,7 +36,6 @@ class RegisterFragment:Fragment (R.layout.fragment_register), RegAuthlistener {
     lateinit var navController: NavController
     lateinit var progressDialog:ProgressDialog
     lateinit var firebaseAuth: FirebaseAuth
-
     lateinit var email:String
     lateinit var name:String
     lateinit var password:String
@@ -81,23 +83,29 @@ class RegisterFragment:Fragment (R.layout.fragment_register), RegAuthlistener {
             var user = User( name, age, phonenum,address,bio,email)
             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid)
                 .setValue(user).addOnCompleteListener{
-                    Toast.makeText(context,"User Registered with email $email",Toast.LENGTH_SHORT).show()
+                    view?.let { Snackbar.make(it,"Registered Sucessfully ${email}",Snackbar.LENGTH_SHORT).show() }
+
                     findNavController().navigate(R.id.action_registerFragment_to_profileFragment)
 
                 }
                 .addOnFailureListener {
-                    Toast.makeText(context,"Registration Failed",Toast.LENGTH_SHORT).show()
+                    view?.let { Snackbar.make(it,"Registration Failed",Snackbar.LENGTH_SHORT).show() }
+
                 }
 
         }
             .addOnFailureListener { e->
                 progressDialog.dismiss()
-                Toast.makeText(context,"Signup failed due to ${e.message}",Toast.LENGTH_SHORT).show()
-
+                view?.let { Snackbar.make(it,"Signup failed due to ${e.message}",Snackbar.LENGTH_SHORT).show() }
             }
     }
 
     override fun on_Started() {
+        val imm: InputMethodManager =
+        requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+
+
         name = binding.nametxt.text.toString().trim()
         email = binding.editTextTextEmailAddress.text.toString().trim()
         password = binding.editTextTextPassword.text.toString().trim()
@@ -153,6 +161,7 @@ class RegisterFragment:Fragment (R.layout.fragment_register), RegAuthlistener {
             binding.bioedttxt.error = "Please Enter Something About.png you"
         }
         else{
+
             firebaseSignup()
         }
 

@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.newsapp.databinding.FragmentProfileBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -49,8 +50,8 @@ class ProfileFragment : Fragment() {
         // handle click logout
         binding.logoutbutton.setOnClickListener{
             firebaseAuth.signOut()
-            Toast.makeText(context,"Logged Out please Login / Register",Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            view?.let { Snackbar.make(it,"Logged out Please Login Or Registered",Snackbar.LENGTH_SHORT).show() }
+            findNavController().navigate(R.id.action_profileFragment_to_loginFragment2)
         }
 
     }
@@ -76,16 +77,16 @@ class ProfileFragment : Fragment() {
 
                 }
                 else {
-                    Toast.makeText(context,"You may Have not entered it properly",Toast.LENGTH_SHORT).show()
+                    view?.let { Snackbar.make(it,"You have not Registered Yet",Snackbar.LENGTH_SHORT).show() }
                 }
             }
                 .addOnFailureListener {
-                    Toast.makeText(context,"Error Failed ",Toast.LENGTH_SHORT).show()
+                    view?.let { Snackbar.make(it,"Error Failed", Snackbar.LENGTH_SHORT).show() }
 
                 }
         }
         else {
-            Toast.makeText(context,"First Login/Register ",Toast.LENGTH_SHORT).show()
+            view?.let { Snackbar.make(it,"First Login / Registered",Snackbar.LENGTH_SHORT).show() }
 
         }
 

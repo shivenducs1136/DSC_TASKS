@@ -17,6 +17,7 @@ class RegAuthViewModel: ViewModel() {
 
 
     fun onRegisterButtonClick(view: View){
+
         regauthListener?.on_Started()
 }
 

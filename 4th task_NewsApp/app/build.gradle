@@ -47,6 +47,8 @@ android {
 }
 
 dependencies {
+    compile 'com.ncornette.cache:okcache-control:1.1.1'
+
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
@@ -78,6 +80,8 @@ dependencies {
 //Network
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    implementation 'com.squareup.moshi:moshi:1.9.1'
 
 //Times Formater
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
